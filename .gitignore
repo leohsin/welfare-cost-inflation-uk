@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Streamlit
+.streamlit/
+*.canvas.data.json
+
+# Data files — keep requirements and code only; raw BoE/ONS files stay local
+*.xlsx
+*.xls
+*.csv
+*.RData
+*.Rhistory
+
+# But DO track the thesis PDF
+!inflation_cost_of_welfare_UK.pdf
+
+# Environments
+.venv/
+venv/
+env/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.cursor
