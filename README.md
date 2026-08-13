@@ -23,17 +23,19 @@ where `z(i) = M1/Y` is the money-income ratio and `i` is the Bank Rate (user cos
 
 ## Live demo
 
-Deployed on Streamlit Community Cloud. After the first deploy, the public URL looks like:
+GitHub: [leohsin/welfare-cost-inflation-uk](https://github.com/leohsin/welfare-cost-inflation-uk)
 
-`https://<app-name>.streamlit.app`
+Deploy once with this pre-filled link (sign in with GitHub, then click **Deploy**):
 
-Visitors do not need to install anything. Open the link in a browser.
+[https://share.streamlit.io/deploy?repository=leohsin/welfare-cost-inflation-uk&branch=master&mainModule=app.py](https://share.streamlit.io/deploy?repository=leohsin/welfare-cost-inflation-uk&branch=master&mainModule=app.py)
 
-To (re)deploy:
+The public URL will look like `https://<app-name>.streamlit.app`. Visitors do not need to install anything.
 
-1. Push this repo to GitHub
-2. Open [https://share.streamlit.io](https://share.streamlit.io) and sign in with GitHub
-3. **New app** → select this repository, branch `master`, main file `app.py`
+If the form is blank, fill in:
+
+1. Repository: `leohsin/welfare-cost-inflation-uk`
+2. Branch: `master`
+3. Main file: `app.py`
 4. Click **Deploy** (Python 3.11 or 3.12 if asked)
 
 ## Running locally

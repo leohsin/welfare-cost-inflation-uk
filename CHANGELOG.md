@@ -8,7 +8,8 @@ All notable changes to this project are documented here.
 
 ### Added
 - Bundled Bank of England M1, Bank Rate, and merged-panel files in `data/` so the app can run on Streamlit Community Cloud without the sibling thesis folder.
-- README section on deploying a public URL at [share.streamlit.io](https://share.streamlit.io).
+- README section on deploying a public URL at [share.streamlit.io](https://share.streamlit.io), including a pre-filled deploy link for `leohsin/welfare-cost-inflation-uk`.
+- `runtime.txt` pins Python 3.12 for Streamlit Community Cloud.
 
 ### Changed
 - `data.py` now loads BoE files from in-repo `data/` first, then falls back to `Welfare_Cost_of_Inflation_UK/resources/`.
