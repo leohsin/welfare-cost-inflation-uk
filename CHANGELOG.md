@@ -4,7 +4,19 @@ All notable changes to this project are documented here.
 
 ---
 
-## [Unreleased] — 2026-07-25
+## [Unreleased] — 2026-08-13
+
+### Added
+- Bundled Bank of England M1, Bank Rate, and merged-panel files in `data/` so the app can run on Streamlit Community Cloud without the sibling thesis folder.
+- README section on deploying a public URL at [share.streamlit.io](https://share.streamlit.io).
+
+### Changed
+- `data.py` now loads BoE files from in-repo `data/` first, then falls back to `Welfare_Cost_of_Inflation_UK/resources/`.
+- `.gitignore` now tracks `data/*.xlsx` and `data/*.csv`.
+
+---
+
+## [1.1.0] — 2026-07-25
 
 ### Added
 - **Multi-frequency analysis**: data frequency selector in the sidebar (Annual / Quarterly / Monthly).

@@ -21,6 +21,21 @@ Bailey (1956) / Lucas (2000) consumer-surplus framework:
 
 where `z(i) = M1/Y` is the money-income ratio and `i` is the Bank Rate (user cost proxy).
 
+## Live demo
+
+Deployed on Streamlit Community Cloud. After the first deploy, the public URL looks like:
+
+`https://<app-name>.streamlit.app`
+
+Visitors do not need to install anything. Open the link in a browser.
+
+To (re)deploy:
+
+1. Push this repo to GitHub
+2. Open [https://share.streamlit.io](https://share.streamlit.io) and sign in with GitHub
+3. **New app** → select this repository, branch `master`, main file `app.py`
+4. Click **Deploy** (Python 3.11 or 3.12 if asked)
+
 ## Running locally
 
 ```bash
@@ -38,13 +53,14 @@ streamlit run app.py
 
 To refresh BoE data: export fresh files from
 [bankofengland.co.uk/boeapps/database](https://www.bankofengland.co.uk/boeapps/database/)
-and save them to `Welfare_Cost_of_Inflation_UK/resources/`.
+and save them to `data/` (the app also falls back to `Welfare_Cost_of_Inflation_UK/resources/` locally).
 
 ## Project structure
 
 ```
 app.py            # Streamlit UI
-data.py           # Data fetching (ONS API + local BoE files)
+data.py           # Data fetching (ONS API + bundled BoE files)
 models.py         # OLS estimation and welfare formulas
+data/             # Bundled M1, Bank Rate, and annual fallback CSV
 requirements.txt
 ```

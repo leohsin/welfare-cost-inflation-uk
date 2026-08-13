@@ -12,12 +12,17 @@ build/
 .streamlit/
 *.canvas.data.json
 
-# Data files — keep requirements and code only; raw BoE/ONS files stay local
+# Data files — keep extra local exports out of git
 *.xlsx
 *.xls
 *.csv
 *.RData
 *.Rhistory
+
+# Track the bundled BoE files needed for Streamlit Cloud
+!data/
+!data/*.xlsx
+!data/*.csv
 
 # But DO track the thesis PDF
 !inflation_cost_of_welfare_UK.pdf

@@ -3,8 +3,9 @@ data.py — Data fetching for the Welfare Cost of Inflation app.
 
 Strategy (in priority order):
   1. ONS Timeseries API  — GDP (YBHA)           live JSON, no auth required
-  2. Local BoE files     — M1 (LPMAVAA .xlsx)   pre-downloaded from BoE database
+  2. Bundled BoE files   — M1 (LPMAVAA .xlsx) in data/ (repo, for Streamlit Cloud)
                          — Bank Rate (IUDBEDR .csv)
+                         — sibling Welfare_Cost_of_Inflation_UK/resources/ as local fallback
   3. Merged panel CSV    — annual fallback if individual files not found
 
 Supported frequencies: "annual" | "quarterly" | "monthly"
@@ -17,7 +18,7 @@ so that z is comparable across frequencies.
 To refresh BoE data manually:
   1. Visit https://www.bankofengland.co.uk/boeapps/database/
   2. Search for LPMAVAA (M1) and IUDBEDR (Bank Rate)
-  3. Export as CSV/Excel and save to the resources folder
+  3. Export as CSV/Excel and save to the in-repo data/ folder
 """
 
 from __future__ import annotations
@@ -34,15 +35,30 @@ import streamlit as st
 # Paths
 # ---------------------------------------------------------------------------
 _HERE = Path(__file__).parent
-_RES = _HERE.parent / "Welfare_Cost_of_Inflation_UK" / "resources"
+_RES = _HERE / "data"
+_RES_FALLBACK = _HERE.parent / "Welfare_Cost_of_Inflation_UK" / "resources"
 
-_BOE_M1_XLSX  = _RES / "LPMAVAA  Bank of England  Database.xlsx"
-_BOE_RATE_CSV = _RES / "IUDBEDR  Bank of England  Database.csv"
-_ONS_GDP_URL  = (
+_BOE_M1_NAME = "LPMAVAA  Bank of England  Database.xlsx"
+_BOE_RATE_NAME = "IUDBEDR  Bank of England  Database.csv"
+_MERGED_NAME = "uk_merged_data_for_lucas.csv"
+
+_ONS_GDP_URL = (
     "https://www.ons.gov.uk/economy/grossdomesticproductgdp"
     "/timeseries/ybha/data"
 )
-_MERGED_CSV = _RES / "uk_merged_data_for_lucas.csv"
+
+
+def _resolve_data_file(name: str) -> Path:
+    """Prefer in-repo data/, then the sibling thesis resources folder."""
+    primary = _RES / name
+    if primary.exists():
+        return primary
+    return _RES_FALLBACK / name
+
+
+_BOE_M1_XLSX = _resolve_data_file(_BOE_M1_NAME)
+_BOE_RATE_CSV = _resolve_data_file(_BOE_RATE_NAME)
+_MERGED_CSV = _resolve_data_file(_MERGED_NAME)
 
 _HEADERS = {
     "User-Agent": (
@@ -294,10 +310,11 @@ def build_panel(
     raise RuntimeError(
         f"Could not build the {frequency} panel.\n\n"
         "Expected data files in:\n"
-        f"  {_RES}\n\n"
+        f"  {_RES}\n"
+        f"  or {_RES_FALLBACK}\n\n"
         "Required:\n"
-        "  • LPMAVAA  Bank of England  Database.xlsx  (M1 monthly)\n"
-        "  • IUDBEDR  Bank of England  Database.csv   (Bank Rate daily)\n\n"
+        f"  • {_BOE_M1_NAME}  (M1 monthly)\n"
+        f"  • {_BOE_RATE_NAME}   (Bank Rate daily)\n\n"
         "GDP is fetched live from the ONS API."
     )
 
